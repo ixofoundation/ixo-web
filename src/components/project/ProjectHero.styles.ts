@@ -34,6 +34,7 @@ export const Title = styled.h1`
   font-size: 2.25rem;
   line-height: 1.25;
   margin: 0.5rem 0;
+  color: #000000;
 
   @media (min-width: ${deviceWidth.tablet}px) {
     font-size: 2.8125rem;
@@ -95,6 +96,7 @@ export const HeroInfoItem = styled.div`
   justify-content: flex-start;
   margin: 0.25rem 0.75rem 0.25rem 0;
   font-weight: bold;
+  color: #000000;
   * + span {
     margin-left: 0.5rem;
   }

@@ -745,7 +745,8 @@ export class ProjectContainer extends React.Component<Props, State> {
         isLedgering: true,
         modalResponse: '',
       }
-      this.props.ixo.utils.getSignData(payload, 'did/AddDid', payload.pubKey)
+      this.props.ixo.utils
+        .getSignData(payload, 'did/AddDid', payload.pubKey)
         .then((response: any) => {
           if (response.sign_bytes && response.fee) {
             this.props.keysafe.requestSigning(
@@ -817,31 +818,23 @@ export class ProjectContainer extends React.Component<Props, State> {
     switch (this.props.contentType) {
       case contentType.overview:
         theContent = (
-          <Fragment>
-            <ProjectHero
-              project={project}
-              match={this.props.match}
-              isDetail={false}
-              hasCapability={this.handleHasCapability}
-              isLoggedIn={this.props.isLoggedIn}
-            />
-            <ProjectOverview
-              match={this.props.match}
-              projectDid={this.state.projectDid}
-              checkUserDid={this.checkUserDid}
-              createAgent={this.handleCreateAgent}
-              userInfo={this.props.userInfo}
-              project={project}
-              isModalOpen={this.state.isModalOpen}
-              toggleModal={this.handleToggleModal}
-              modalData={this.state.modalData}
-              hasCapability={this.handleHasCapability}
-              imageLink={this.state.imageLink}
-              projectStatus={this.state.projectStatus}
-              ledger={this.state.ledger}
-              ledgerDid={this.handleLedgerDid}
-            />
-          </Fragment>
+          <ProjectOverview
+            match={this.props.match}
+            projectDid={this.state.projectDid}
+            checkUserDid={this.checkUserDid}
+            createAgent={this.handleCreateAgent}
+            userInfo={this.props.userInfo}
+            project={project}
+            isModalOpen={this.state.isModalOpen}
+            toggleModal={this.handleToggleModal}
+            modalData={this.state.modalData}
+            hasCapability={this.handleHasCapability}
+            imageLink={this.state.imageLink}
+            projectStatus={this.state.projectStatus}
+            ledger={this.state.ledger}
+            ledgerDid={this.handleLedgerDid}
+            isLoggedIn={this.props.isLoggedIn}
+          />
         )
         break
       case contentType.dashboard:

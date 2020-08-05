@@ -7,6 +7,7 @@ import { Table } from 'react-bootstrap'
 import { ProjectFounder } from '../ProjectFounder/ProjectFounder'
 import { Header } from '../../../types/models'
 import ProfileCard from '../ProfileCard/ProfileCard'
+import { ProjectHero } from '../ProjectHero'
 import ControlPanel from '../../../common/components/ControlPanel/ControlPanel'
 import {
   ProjectImage,
@@ -33,6 +34,7 @@ export interface ParentProps {
   ledgerDid: () => void
   imageLink: string
   projectStatus: string
+  isLoggedIn: boolean
   ledger: {
     modalResponse: string
     isLedgering: boolean
@@ -76,6 +78,13 @@ export const ProjectOverview: React.SFC<Props> = props => {
         <div className="container">
           <div className="row">
             <div className="col-lg-8">
+              <ProjectHero
+                project={props.project}
+                match={props.match}
+                isDetail={false}
+                hasCapability={props.hasCapability}
+                isLoggedIn={props.isLoggedIn}
+              />
               <ProjectImage
                 src={props.imageLink}
                 onError={onProjectImageNotFound}

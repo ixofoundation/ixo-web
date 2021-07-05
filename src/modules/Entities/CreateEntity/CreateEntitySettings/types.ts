@@ -131,6 +131,8 @@ export enum CreateEntitySettingsActions {
   AddAnalyticsSection = 'ixo/CreateEntitySettings/ADD_ANALYTICS_SECTION',
   UpdateAnalyticsContent = 'ixo/CreateEntitySettings/UPDATE_ANALYTICS_CONTENT',
   RemoveAnalyticsSection = 'ixo/CreateEntitySettings/REMOVE_ANALYTICS_SECTION',
+
+  ImportEntitySettings = 'ixo/CreateEntitySettings/IMPORT_ENTITY_SETTINGS'
 }
 
 export interface UpdateCreatorAction {
@@ -335,6 +337,12 @@ export interface RemoveAnalyticsSectionAction {
   }
 }
 
+export interface ImportEntitySettingsAction {
+  type: typeof CreateEntitySettingsActions.ImportEntitySettings,
+  payload: any
+}
+
+
 export type CreateEntitySettingsActionTypes =
   | UpdateOwnerAction
   | UploadOwnerImageAction
@@ -363,3 +371,4 @@ export type CreateEntitySettingsActionTypes =
   | AddAnalyticsSectionAction
   | UpdateAnalyticsContentAction
   | RemoveAnalyticsSectionAction
+  | ImportEntitySettingsAction

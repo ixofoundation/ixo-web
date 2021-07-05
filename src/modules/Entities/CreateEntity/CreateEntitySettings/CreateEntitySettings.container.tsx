@@ -166,7 +166,7 @@ class CreateEntitySettings extends CreateEntityBase<Props> {
     return (
       <FormCardWrapper
         showAddSection={false}
-        title={`${this.entityTitle} Owner`}
+        title={`${this.entityTitle} Controller`}
       >
         <OwnerCard
           ref={this.cardRefs['owner']}

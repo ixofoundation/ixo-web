@@ -88,7 +88,7 @@ class CreateEntityPageContent extends CreateEntityBase<Props> {
     return (
       <FormCardWrapper
         title="Header Card"
-        description="The information in this card is public and permanent"
+        description="The information in this card displays on the Explorer card."
         showAddSection={false}
       >
         <HeaderCard
@@ -122,7 +122,7 @@ class CreateEntityPageContent extends CreateEntityBase<Props> {
     } = this.props
     return (
       <FormCardWrapper
-        title="Main Section Card"
+        title="Body Content Card"
         description="Accepts Markdown formatting such as **bold**, *italic* and ***bold italic***."
         showAddSection
         onAddSection={handleAddBodySection}
@@ -167,7 +167,7 @@ class CreateEntityPageContent extends CreateEntityBase<Props> {
 
     return (
       <FormCardWrapper
-        title="Image Section Card"
+        title="Image In Article Card"
         description="Accepts Markdown formatting such as **bold**, *italic* and ***bold italic***."
         showAddSection
         onAddSection={handleAddImageSection}
@@ -357,6 +357,12 @@ class CreateEntityPageContent extends CreateEntityBase<Props> {
     handleGoToStep(this.getNextStep(entityType, step))
   }
 
+  onBack = (): void => {
+    const { entityType, step, handleGoToStep } = this.props
+
+    handleGoToStep(this.getPreviousStep(entityType, step))
+  }
+
   render(): JSX.Element {
     const { body, images, profiles, embedded } = this.props
 
@@ -385,7 +391,7 @@ class CreateEntityPageContent extends CreateEntityBase<Props> {
         {this.renderProfileSections()}
         {this.renderSocialContent()}
         {this.renderEmbeddedSections()}
-        {this.renderButtonGroup(identifiers, false)}
+        {this.renderButtonGroup(identifiers, true)}
       </>
     )
   }

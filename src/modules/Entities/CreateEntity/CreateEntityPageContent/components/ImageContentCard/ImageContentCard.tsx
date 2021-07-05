@@ -38,7 +38,7 @@ const HeaderCard: React.FunctionComponent<Props> = React.forwardRef(
       type: 'object',
       required: ['title', 'content'],
       properties: {
-        title: { type: 'string', title: 'Title' },
+        title: { type: 'string', title: 'H1 Title' },
         content: { type: 'string', title: 'Body Content' },
         fileSrc: { type: 'string', title: 'Image' },
         imageDescription: { type: 'string', title: 'Image Description' },

@@ -49,7 +49,7 @@ export const getClaim = (claimId: string, projectDid: string, claimTemplateDid: 
             ProjectDIDPayload,
             signature,
             PDS_URL
-            )
+          )
             .then((response: any) => {
               if (response.error) {
                 return null;

@@ -35,7 +35,7 @@ const BodyContentCard: React.FunctionComponent<Props> = React.forwardRef(
       type: 'object',
       required: ['fileSrc', 'title', 'content'],
       properties: {
-        title: { type: 'string', title: 'Title' },
+        title: { type: 'string', title: 'H1 Title' },
         empty: { type: 'null' },
         fileSrc: { type: 'string', title: 'In Article Image' },
         content: { type: 'string', title: 'Body Content' },

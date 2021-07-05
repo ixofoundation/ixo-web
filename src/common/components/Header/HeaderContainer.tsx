@@ -22,6 +22,7 @@ import {
 import Success from 'assets/icons/Success'
 import blocksyncApi from 'common/api/blocksync-api/blocksync-api'
 import keysafe from 'common/keysafe/keysafe'
+import Axios from 'axios'
 
 export interface State {
   responseTime: number | null
@@ -204,8 +205,12 @@ class Header extends React.Component<Props, State> {
   handleLedgerDid = (): void => {
     if (this.props.userInfo.didDoc) {
       const payload = this.props.userInfo.didDoc
-      blocksyncApi.utils
-        .getSignData(payload, 'did/AddDid', payload.pubKey)
+
+      const msgJson = JSON.stringify({ type: 'did/AddDid', value: payload })
+      const msgUppercaseHex = new Buffer(msgJson).toString('hex').toUpperCase()
+      const postFormat = { msg: msgUppercaseHex, pub_key: payload.pubKey }
+
+      Axios.post('https://testnet.ixo.world/txs/sign_data', postFormat)
         .then((response: any) => {
           if (response.sign_bytes && response.fee) {
             keysafe.requestSigning(

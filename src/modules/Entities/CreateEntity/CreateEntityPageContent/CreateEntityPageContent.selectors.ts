@@ -48,6 +48,13 @@ export const selectEmbeddedContentSections = createSelector(
   },
 )
 
+export const selectLinkedResourcesContentSections = createSelector(
+  selectPageContent,
+  (pageContent) => {
+    return pageContent.linkedResources ? Object.values(pageContent.linkedResources) : []
+  },
+)
+
 export const selectValidation = createSelector(
   selectPageContent,
   (pageContent) => {

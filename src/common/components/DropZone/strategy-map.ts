@@ -2,11 +2,12 @@ import DownloadDocument from "assets/icons/DownloadDocument";
 import DownloadAudio from "assets/icons/DownloadAudio";
 import DownloadVideo from "assets/icons/DownloadVideo";
 import { FileType } from "./types";
+import DownloadResource from "assets/icons/DownloadResource";
 
 export const strategyMap = {
   [FileType.Document]: {
     mimeType:
-      "application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.wordprocessingml.document,application/docx,application/pdf,text/plain,application/msword,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+      "application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.wordprocessingml.document,application/docx,application/pdf,text/plain,application/msword,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,application/json",
     downloadIcon: DownloadDocument,
     fileTypesText: "document",
     uploadButtonText: "Choose a Document",
@@ -33,4 +34,11 @@ export const strategyMap = {
     uploadButtonText: "Choose an Image",
     replaceButtonText: "Replace Image",
   },
+  [FileType.Resource]: {
+    mimeType: "*/*",
+    fileTypesText: "resource",
+    downloadIcon: DownloadResource,
+    uploadButtonText: "Upload A Resource File",
+    replaceButtonText: "File Uploaded"
+  }
 };

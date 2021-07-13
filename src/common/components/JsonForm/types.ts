@@ -15,6 +15,7 @@ import SDGSelector from './CustomWidgets/SDGSelector/SDGSelector'
 import SocialTextBox from './CustomWidgets/SocialTextBox/SocialTextBox'
 import EmbeddedUrlTextBox from './CustomWidgets/EmbeddedUrlTextBox/EmbeddedUrlTextBox'
 import EntitySelector from './CustomWidgets/EntitySelector/EntitySelector'
+import ResourceUpload from './CustomWidgets/ResourceUpload/ResourceUpload'
 
 export type FormData = {
   [id: string]: any
@@ -56,6 +57,7 @@ export enum ControlType {
   ImageUpload = 'imageupload',
   VideoUpload = 'videoupload',
   DocumentUpload = 'documentupload',
+  ResourceUpload = 'resourceupload',
   LocationSelector = 'locationselector',
   CountrySelector = 'countryselector',
   SDGSelector = 'sdgselector',
@@ -87,4 +89,5 @@ export const customControls = {
   [ControlType.EntitySelector]: EntitySelector,
   [ControlType.QRCode]: QRCode,
   [ControlType.QRCodeScan]: QRCodeScan,
+  [ControlType.ResourceUpload]: ResourceUpload
 }

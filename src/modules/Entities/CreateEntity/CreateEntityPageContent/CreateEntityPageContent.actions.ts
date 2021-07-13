@@ -24,6 +24,10 @@ import {
   UploadProfileContentImageAction,
   ValidatedAction,
   ValidationErrorAction,
+  AddLinkedResourcesSectionAction,
+  UpdateLinkedResourcesSectionAction,
+  RemoveLinkedResourcesSectionAction,
+
 } from './types'
 import { FormData } from 'common/components/JsonForm/types'
 import { PDS_URL } from '../../types'
@@ -247,6 +251,30 @@ export const addEmbeddedSection = (): AddEmbeddedSectionAction => ({
   },
 })
 
+export const addLinkedResourcesSection = (): AddLinkedResourcesSectionAction => ({
+  type: CreateEntityPageContentActions.AddLinkedResourcesSection,
+  payload: {
+    id: uuidv4(),
+  }
+})
+
+export const updateLinkedResourcesContent = (id: string, formData: FormData): UpdateLinkedResourcesSectionAction => {
+  const { type, resourceFormat, displayName, displayDescription, endpoint, proof, encrypted } = formData
+  return {
+    type: CreateEntityPageContentActions.UpdateLinkedResourcesContent,
+    payload: {
+      id,
+      type,
+      resourceFormat,
+      displayName,
+      displayDescription,
+      endpoint,
+      proof,
+      encrypted
+    },
+  }
+}
+
 export const removeEmbeddedSection = (
   id: string,
 ): RemoveEmbeddedSectionAction => ({
@@ -271,6 +299,15 @@ export const updateEmbeddedContent = (
     },
   }
 }
+
+export const removeLinkedResourcesSection = (
+  id: string,
+): RemoveLinkedResourcesSectionAction => ({
+  type: CreateEntityPageContentActions.RemoveLinkedResourcesContent,
+  payload: {
+    id,
+  },
+})
 
 export const validated = (identifier: string): ValidatedAction => ({
   type: CreateEntityPageContentActions.Validated,

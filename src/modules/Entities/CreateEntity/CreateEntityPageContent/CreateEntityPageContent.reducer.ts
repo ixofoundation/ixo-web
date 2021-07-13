@@ -39,6 +39,7 @@ export const initialState: CreateEntityPageContentState = {
   embedded: {
   },
   validation: {},
+  linkedResources: {},
 }
 
 export const reducer = (
@@ -385,6 +386,29 @@ export const reducer = (
       return {
         ...state,
         ...action.payload
+      }
+    case CreateEntityPageContentActions.AddLinkedResourcesSection:
+      return {
+        ...state,
+        linkedResources: {
+          ...state.linkedResources,
+          ...{
+            [action.payload.id]: {
+              ...action.payload,
+              type: undefined,
+              displayName: undefined,
+              displayDescription: undefined,
+              endpoint: '',
+              proof: undefined,
+              encrypted: false
+            },
+          },
+        },
+      }
+    case CreateEntityPageContentActions.RemoveLinkedResourcesContent:
+      return {
+        ...state,
+        linkedResources: reduxUtils.omitKey(state.linkedResources, action.payload.id),
       }
     case CreateEntityPageContentActions.ValidationError:
       return {

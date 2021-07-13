@@ -13,6 +13,7 @@ import {
   ProfilePageContent,
   SocialPageContent,
   EmbeddedPageContent,
+  LinkedResourcesContent,
 } from './types'
 import HeaderCard from './components/HeaderCard/HeaderCard'
 import BodyContentCard from './components/BodyContentCard/BodyContentCard'
@@ -20,6 +21,8 @@ import ImageContentCard from './components/ImageContentCard/ImageContentCard'
 import ProfileContentCard from './components/ProfileContentCard/ProfileContentCard'
 import SocialContentCard from './components/SocialContentCard/SocialContentCard'
 import EmbeddedContentCard from './components/EmbeddedContentCard/EmbeddedContentCard'
+import LinkedResourcesCard from './components/LinkedResourcesCard/LinkedResourcesCard'
+
 import {
   updateHeaderContent,
   addBodySection,
@@ -37,6 +40,9 @@ import {
   removeEmbeddedSection,
   validated,
   validationError,
+  addLinkedResourcesSection,
+  updateLinkedResourcesContent,
+  removeLinkedResourcesSection,
 } from './CreateEntityPageContent.actions'
 import { goToStep } from '../CreateEntity.actions'
 import { FormData } from 'common/components/JsonForm/types'
@@ -49,6 +55,7 @@ interface Props extends CreateEntityBaseProps {
   profiles: ProfilePageContent[]
   social: SocialPageContent
   embedded: EmbeddedPageContent[]
+  linkedResources: LinkedResourcesContent[]
   handleUpdateHeaderContent: (formData: FormData) => void
   handleAddBodySection: () => void
   handleRemoveBodySection: (id: string) => void
@@ -63,6 +70,9 @@ interface Props extends CreateEntityBaseProps {
   handleAddEmbeddedSection: () => void
   handleRemoveEmbeddedSection: (id: string) => void
   handleUpdateEmbeddedContent: (id: string, formData: FormData) => void
+  handleAddLinkedResourcesSection: () => void
+  handleUpdateLinkedResourcesSection: (id: string, formData: FormData) => void
+  handleRemoveLinkedResourcesSection: (id: string) => void
 }
 
 class CreateEntityPageContent extends CreateEntityBase<Props> {
@@ -351,6 +361,50 @@ class CreateEntityPageContent extends CreateEntityBase<Props> {
     )
   }
 
+  renderLinkedResourcesCard = (): JSX.Element => {
+    const {
+      linkedResources,
+      handleAddLinkedResourcesSection,
+      handleUpdateLinkedResourcesSection,
+      handleRemoveLinkedResourcesSection,
+    } = this.props
+
+    return (
+      <FormCardWrapper
+        title="Linked Resources"
+        description={null}
+        showAddSection
+        onAddSection={handleAddLinkedResourcesSection}
+      >
+        {linkedResources.map((section) => {
+          this.cardRefs[section.id] = React.createRef()
+
+          const { id } = section
+
+          return (
+            <LinkedResourcesCard
+              ref={this.cardRefs[section.id]}
+              key={id}
+              linkedResource={section}
+              handleUpdateContent={(formData): void =>
+                handleUpdateLinkedResourcesSection(id, formData)
+              }
+              handleRemoveSection={(): void =>
+                handleRemoveLinkedResourcesSection(id)
+              }
+              handleSubmitted={(): void =>
+                this.props.handleValidated(section.id)
+              }
+              handleError={(errors): void =>
+                this.props.handleValidationError(section.id, errors)
+              }
+            />
+          )
+        })}
+      </FormCardWrapper>
+    )
+  }
+
   onSubmitted = (): void => {
     const { entityType, step, handleGoToStep } = this.props
 
@@ -391,6 +445,7 @@ class CreateEntityPageContent extends CreateEntityBase<Props> {
         {this.renderProfileSections()}
         {this.renderSocialContent()}
         {this.renderEmbeddedSections()}
+        {this.renderLinkedResourcesCard()}
         {this.renderButtonGroup(identifiers, true)}
       </>
     )
@@ -406,6 +461,9 @@ const mapStateToProps = (state: RootState): any => ({
   profiles: pageContentSelectors.selectProfileContentSections(state),
   social: pageContentSelectors.selectSocialContent(state),
   embedded: pageContentSelectors.selectEmbeddedContentSections(state),
+  linkedResources: pageContentSelectors.selectLinkedResourcesContentSections(
+    state,
+  ),
   validationComplete: pageContentSelectors.selectValidationComplete(state),
   validated: pageContentSelectors.selectValidated(state),
 })
@@ -433,6 +491,12 @@ const mapDispatchToProps = (dispatch: Dispatch<any>): any => ({
   handleUpdateEmbeddedContent: (id: string, formData: FormData): void =>
     dispatch(updateEmbeddedContent(id, formData)),
   handleAddEmbeddedSection: (): void => dispatch(addEmbeddedSection()),
+  handleAddLinkedResourcesSection: (): void =>
+    dispatch(addLinkedResourcesSection()),
+  handleUpdateLinkedResourcesSection: (id: string, formData: FormData): void =>
+    dispatch(updateLinkedResourcesContent(id, formData)),
+  handleRemoveLinkedResourcesSection: (id: string): void =>
+    dispatch(removeLinkedResourcesSection(id)),
   handleRemoveEmbeddedSection: (id: string): void =>
     dispatch(removeEmbeddedSection(id)),
   handleValidated: (identifier: string): void =>

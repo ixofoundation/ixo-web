@@ -65,6 +65,16 @@ export interface EmbeddedPageContent {
   urls: string[]
 }
 
+export interface LinkedResourcesContent {
+  type: string
+  id: string
+  displayName: string
+  displayDescription: string
+  endpoint: string
+  proof: string
+  encrypted: boolean
+}
+
 export interface CreateEntityPageContentState {
   header: HeaderPageContent
   body: {
@@ -82,6 +92,9 @@ export interface CreateEntityPageContentState {
   }
   validation: {
     [identifier: string]: Validation
+  }
+  linkedResources: {
+    [id: string]: LinkedResourcesContent
   }
 }
 
@@ -139,7 +152,12 @@ export enum CreateEntityPageContentActions {
   ValidationError = 'ixo/CreateEntityPageContent/VALIDATION_ERROR',
 
   // Import Page Contnet
-  ImportEntityPageContent = 'ixo/CreateEntityPageContent/IMPORT_ENTITY_PAGE_CONTENT'
+  ImportEntityPageContent = 'ixo/CreateEntityPageContent/IMPORT_ENTITY_PAGE_CONTENT',
+
+  // Linked Resources
+  AddLinkedResourcesSection = 'ixo/CreateEntityPageContent/ADD_LINKED_RESOURCES_SECTION',
+  UpdateLinkedResourcesContent = 'ixo/CreateEntityPageContent/UPDATE_LINKED_RESOURCES',
+  RemoveLinkedResourcesContent = 'ixo/CreateEntityPageContent/REMOVE_LINKED_RESOURCES',
 }
 
 export interface UpdateHeaderContentAction {
@@ -434,6 +452,13 @@ export interface AddEmbeddedSectionAction {
   }
 }
 
+export interface AddLinkedResourcesSectionAction {
+  type: typeof CreateEntityPageContentActions.AddLinkedResourcesSection
+  payload: {
+    id: string
+  }
+}
+
 export interface RemoveEmbeddedSectionAction {
   type: typeof CreateEntityPageContentActions.RemoveEmbeddedSection
   payload: {
@@ -468,6 +493,27 @@ export interface ValidationErrorAction {
 export interface ImportEntityPageContentAction {
   type: typeof CreateEntityPageContentActions.ImportEntityPageContent,
   payload: any
+}
+
+export interface UpdateLinkedResourcesSectionAction {
+  type: typeof CreateEntityPageContentActions.UpdateLinkedResourcesContent,
+  payload: {
+    id: string
+    resourceFormat: string
+    type: string
+    displayName: string
+    displayDescription: string
+    endpoint: string
+    proof: string
+    encrypted: boolean
+  }
+}
+
+export interface RemoveLinkedResourcesSectionAction {
+  type: typeof CreateEntityPageContentActions.RemoveLinkedResourcesContent
+  payload: {
+    id: string
+  }
 }
 
 export type CreateEntityPageContentActionTypes =
@@ -515,3 +561,6 @@ export type CreateEntityPageContentActionTypes =
   | ValidatedAction
   | ValidationErrorAction
   | ImportEntityPageContentAction
+  | AddLinkedResourcesSectionAction
+  | UpdateLinkedResourcesSectionAction
+  | RemoveLinkedResourcesSectionAction

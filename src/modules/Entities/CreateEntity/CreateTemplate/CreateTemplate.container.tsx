@@ -30,7 +30,7 @@ class CreateTemplate extends CreateEntityBase<any> {
 
   onSubmitted = (): void => {
     const { entityType, step, handleGoToStep } = this.props
-    console.log('fffffffffffffffff')
+
     handleGoToStep(this.getNextStep(entityType, step))
   }
 
@@ -76,7 +76,7 @@ class CreateTemplate extends CreateEntityBase<any> {
   renderTokenTemplate = (): JSX.Element => {
     this.cardRefs['template'] = React.createRef()
     return (
-      <FormCardWrapper showAddSection={false} title={`Tokens to be Minted`}>
+      <FormCardWrapper title={`Tokens to be Minted`} showAddSection>
         <TokenTemplateCard
           ref={this.cardRefs['template']}
           displayName=""
